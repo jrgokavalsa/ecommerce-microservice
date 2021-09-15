@@ -1,0 +1,31 @@
+server:
+  port: 9000
+
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: BANK-SERVICE
+        uri: lb://BANK-SERVICE/
+        predicates:
+        - Path=/api/bankservice/**
+      - id: ORDER-SERVICE
+        uri: lb://ORDER-SERVICE/
+        predicates:
+        - Path=/api/orderservice/**,/api/bankservice/**
+      - id: USER-REGISTRATION
+        uri: lb://USER-REGISTRATION/
+        predicates:
+        - Path=/api/user/**,/api/orderservice/**,/api/bankservice/** 
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+     hostname: localhost   

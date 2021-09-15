@@ -1,0 +1,17 @@
+server:
+  port: 9001
+  error:
+    include-stacktrace: never
+
+spring:
+  application:
+    name: USER-REGISTRATION
+    
+feign:
+  client:
+    config:
+      default:
+        errorDecoder: com.userregistration.application.util.FeignClientErrorDecoder
+        loggerLevel: BASIC    
+    
+    
